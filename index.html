@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="lib/css/bootstrap.css">
-	<script type="text/javascript" src="js/index.js"></script>
+
 </head>
 <body>
 	<div class="main-wrap">
@@ -30,16 +30,22 @@
 
 		<div class="content">
 			<!-- 轮播 -->
-			<div class="slide">
-				<div class="show">
-					<a href=""><img src="images/slide2.jpg"></a>
+			<div class="slide" id="slide">
+				<div class="show" id="show">
+					<ul id="showul" class="showul showul2">
+						<li><a href="#"><img src="images/slide.jpg"></a></li>
+						<li><a href="#"><img src="images/slide3.jpg"></a></li>
+						<li><a href="#"><img src="images/slide4.jpg"></a></li>
+						<li><a href="#"><img src="images/slide5.jpg"></a></li>
+						<li><a href="#"><img src="images/slide.jpg"></a></li>
+					</ul>
 				</div>
-				<div class="control">
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
+				<ul class="control" id="control">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
 				
 			</div>
 			<!-- 分类 -->
@@ -194,5 +200,7 @@
 			</a>
 		</div>
 	</div>
+
+		<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
