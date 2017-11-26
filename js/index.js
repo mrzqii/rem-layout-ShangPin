@@ -1,55 +1,49 @@
- 
+ function $(id) {
+    return document.getElementById(id)
+  }
+  var liArr = $('ad').children;
+  var imgWidth = $('ad').children[0].offsetWidth;
+  function animate(obj, target, attr) {
+    clearInterval(obj.timer);
 
-var show = document.getElementById('show');
-var showUl = document.getElementById('showul');
-var liArr = showUl.children;
-var imgWidth = liArr[0].offsetWidth;
-var control = document.getElementById('control');
-var controlArr  = control.children;
-controlArr[0].className = 'active'
-for (var i = 0; i < controlArr.length; i++) {
-	controlArr[i].index = i;
-	controlArr[i].onmouseover = function() {
-		
-		for (var j = 0; j < controlArr.length; j++) {
-			controlArr[j].className = '';
-		}
-		controlArr[this.index].className = 'active';
-		showUl.style.left = -imgWidth*(this.index)+"px"
-		key = squere = this.index;
-	}
-}
-//添加定时器
-var timer = setInterval(autoplay, 2000)
+    //管理定时器
+    obj.timer = setInterval(function() {
+      var step = (target-obj.offsetLeft) / 10 ;
+      step = step > 0 ? Math.ceil(step):Math.floor(step);
+      obj.style.left = obj.offsetLeft + step + 'px';
+      //当移动一个宽度了就停止
+      if (obj.offsetLeft%imgWidth==0) {
+          clearInterval(obj.timer);
+      
 
-var key =0;
-var squere = 0;
+           if(attr==="left") {
+            var newLi = obj.children[liArr.length-1].cloneNode(true);
+           obj.insertBefore(newLi, obj.children[0]);
+           obj.removeChild(obj.children[liArr.length-1]);
+           // 必须恢复到这个位置，因为添加的子元素会使盒子内的子元素位置变化
+           obj.style.left = -imgWidth*2 + 'px';
+           }else {
+              var newLi = obj.children[0].cloneNode(true);
+              obj.appendChild(newLi);
+              obj.removeChild(obj.children[0])
+              obj.style.left = -imgWidth*2 + 'px';
+           }
+       }
+    },20);
 
-function autoplay() {
-	key++
-	showUl.className = 'showul showul2'
-	if(key>controlArr.length){
-		showUl.className = 'showul'
-		showUl.style.left = "0px";
-		key=1
-		if (key=1) {
-		showUl.style.left = -imgWidth*key+"px"
-		}
-	}
-	 
-		showUl.style.left = -imgWidth*key+"px"
- 
-	squere++
-	for (var i = 0; i < controlArr.length; i++) {
-		controlArr[i].className='';
-	}
-	if (squere>controlArr.length-1) {
-		squere=0
-	}
-	controlArr[squere].className='active';
-}
+  }
 
- 
+  var timer = setInterval(autoplay, 2000)
+  function autoplay() {
+    animate($('ad'), -imgWidth*3, "right");
+  }
 
+  $('left').onclick = function() {
+    clearInterval(timer)
+    animate($('ad'), -imgWidth, 'left')
+  }
 
-
+  $('right').onclick = function() {
+    clearInterval(timer)
+    animate($('ad'), -imgWidth*3, 'right')
+  }
